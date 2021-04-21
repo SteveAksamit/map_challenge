@@ -4,12 +4,11 @@ import { ReactComponent as MapSvg } from './map.svg'
 
 class App extends Component {
   state = {
-    states: {},
     rangeOptions: [
-      { key: 1, visitRange: '0 - 250', statesInRange: [] },
-      { key: 2, visitRange: '250 - 500', statesInRange: [] },
-      { key: 3, visitRange: '500 - 1000', statesInRange: [] },
-      { key: 4, visitRange: '1000+', statesInRange: [] }
+      { visitRange: '0 - 250', statesInRange: [] },
+      { visitRange: '250 - 500', statesInRange: [] },
+      { visitRange: '500 - 1000', statesInRange: [] },
+      { visitRange: '1000+', statesInRange: [] }
     ]
   }
 
@@ -17,23 +16,35 @@ class App extends Component {
     fetch('/states')
       .then(res => res.json())
       .then(states => {
-        const cleanedStates = this.cleanData(states);
-        this.setState({ states: cleanedStates });
+        this.mapVisitsToRange(states);
       })
   };
 
-  cleanData(states = []){
-    const aggregateData = {}
-    states.map((state, i) =>{
-      const stateCode = state.id;
-      if(Object.keys(aggregateData).indexOf(stateCode) === -1){
-        aggregateData[stateCode] = {
-          name: state.name,
-          visits: state.visits,
+  mapVisitsToRange(states = []){
+    const stateSet = new Set();
+    states.map((state) =>{
+      const stateCode = state.id.toLowerCase();
+      if(!stateSet.has(stateCode)){
+        stateSet.add(stateCode);
+        switch(true){
+          case (state.visits <= 250):
+            this.state.rangeOptions[0].statesInRange.push(stateCode);
+            break;
+          case (state.visits > 250 && state.visits <= 500):
+            this.state.rangeOptions[1].statesInRange.push(stateCode);
+            break;
+          case (state.visits > 500 && state.visits <= 1000):
+            this.state.rangeOptions[2].statesInRange.push(stateCode);
+            break;
+          case (state.visits > 1000):
+            this.state.rangeOptions[3].statesInRange.push(stateCode);
+            break;
+          default:
+            break;
         }
       }
+      console.log(this.state.rangeOptions)
     })
-    return aggregateData;
   }
 
   render() {
@@ -42,12 +53,12 @@ class App extends Component {
         <h1>States</h1>
         <select>
             <option key="placeholder">Select an option</option>
-            {this.state.rangeOptions.map(option =>(
-              <option key={option.key}>{option.visitRange}</option>
+            {this.state.rangeOptions.map((option, i) =>(
+              <option key={i + 1}>{option.visitRange}</option>
             ))}
         </select>
         <div>
-              <MapSvg />
+          <MapSvg />
         </div>
       </div>
     );
