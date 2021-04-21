@@ -5,18 +5,39 @@ class App extends Component {
   state = {states: []}
 
   componentDidMount() {
-    fetch('/users')
+    fetch('/states')
       .then(res => res.json())
-      .then(states => this.setState({ states }));
+      .then(states => {
+        const cleanedStates = this.cleanData(states)
+        this.setState({ states: cleanedStates });
+      })
+  };
+
+  cleanData(states = []){
+    const aggregateData = {}
+    const data = states.map((state, i) =>{
+      const stateCode = state.id
+      if(Object.keys(aggregateData).indexOf(stateCode) === -1){
+        aggregateData[stateCode] = {
+          name: state.name,
+          visits: state.visits,
+          dataMismatch: 0
+        }
+      } else if(aggregateData[stateCode].visits !== state.visits) {
+        console.log("in here")
+        aggregateData[stateCode].dataMismatch = aggregateData[stateCode].dataMismatch + 1;
+      }
+
+    })
+    console.log(aggregateData)
+    return aggregateData;
   }
 
   render() {
     return (
       <div className="App">
         <h1>States</h1>
-        {this.state.states.map(state =>
-          <div key={state.id}>{state.name}, {state.visits}</div>
-        )}
+
       </div>
     );
   }
