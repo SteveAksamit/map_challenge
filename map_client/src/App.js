@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { ReactComponent as MapSvg } from './map.svg'
 
 class App extends Component {
   state = {
@@ -45,6 +46,9 @@ class App extends Component {
               <option key={option.key}>{option.visitRange}</option>
             ))}
         </select>
+        <div>
+              <MapSvg />
+        </div>
       </div>
     );
   }
