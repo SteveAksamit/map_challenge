@@ -15,19 +15,14 @@ class App extends Component {
 
   cleanData(states = []){
     const aggregateData = {}
-    const data = states.map((state, i) =>{
-      const stateCode = state.id
+    states.map((state, i) =>{
+      const stateCode = state.id;
       if(Object.keys(aggregateData).indexOf(stateCode) === -1){
         aggregateData[stateCode] = {
           name: state.name,
           visits: state.visits,
-          dataMismatch: 0
         }
-      } else if(aggregateData[stateCode].visits !== state.visits) {
-        console.log("in here")
-        aggregateData[stateCode].dataMismatch = aggregateData[stateCode].dataMismatch + 1;
       }
-
     })
     console.log(aggregateData)
     return aggregateData;
