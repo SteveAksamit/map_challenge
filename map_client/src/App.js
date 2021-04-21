@@ -15,7 +15,7 @@ class App extends Component {
       <div className="App">
         <h1>States</h1>
         {this.state.states.map(state =>
-          <div key={state.id}>{state.name}</div>
+          <div key={state.id}>{state.name}, {state.visits}</div>
         )}
       </div>
     );
