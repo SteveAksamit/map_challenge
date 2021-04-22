@@ -36,3 +36,61 @@
     transform: rotate(360deg);
   }
 }
+
+.al.active,
+.ak.active,
+.az.active,
+.ar.active,
+.ca.active,
+.co.active,
+.ct.active,
+.de.active,
+.dc.active,
+.fl.active,
+.ga.active,
+.hi.active,
+.id.active,
+.il.active,
+.in.active,
+.ia.active,
+.ks.active,
+.ky.active,
+.la.active,
+.me.active,
+.md.active,
+.ma.active,
+.mi.active,
+.mn.active,
+.ms.active,
+.mo.active,
+.mt.active,
+.ne.active,
+.nv.active,
+.nh.active,
+.nj.active,
+.nm.active,
+.ny.active,
+.nc.active,
+.nd.active,
+.oh.active,
+.ok.active,
+.or.active,
+.pa.active,
+.ri.active,
+.sc.active,
+.sd.active,
+.tn.active,
+.tx.active,
+.ut.active,
+.vt.active,
+.va.active,
+.wa.active,
+.wv.active,
+.wi.active,
+.wy.active {
+  fill: #0d7ef9;
+}
+
+.active {
+  fill: #0d7ef9;
+}
