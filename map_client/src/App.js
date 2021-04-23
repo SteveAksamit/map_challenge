@@ -1,11 +1,11 @@
-import React, { Component, ReactDOM } from "react";
+import React, { Component, createRef } from "react";
 import "./App.css";
-import { ReactComponent as MapSvg } from "./map.svg";
+import { Select, MapSvg } from "./components";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.mapRef = React.createRef();
+    this.mapRef = createRef();
     this.state = {
       rangeOptions: [
         {
@@ -87,18 +87,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h4 class="visits-title">User Visits</h4>
-        <select
-          onChange={this.handleSelect}
-          value={this.state.selectedVal}
-          className="visits-select"
-        >
-          {this.state.rangeOptions.map((option, i) => (
-            <option key={i + 1} value={option.value}>
-              {option.visitRange}
-            </option>
-          ))}
-        </select>
+        <h4 className="visits-title">User Visits</h4>
+        <Select
+          rangeOptions={this.state.rangeOptions}
+          handleSelect={this.handleSelect}
+          selectedVal={this.state.selectedVal}
+        />
         <div>
           <MapSvg ref={this.mapRef} />
         </div>
