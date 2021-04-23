@@ -20,8 +20,6 @@ class App extends Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-
-
   componentDidMount() {
     fetch('/states')
       .then(res => res.json())
@@ -57,8 +55,7 @@ class App extends Component {
   }
 
   getRange(rangeValue){
-    const foundRange = this.state.rangeOptions.find(range => range.value === rangeValue)
-    return foundRange
+    return this.state.rangeOptions.find(range => range.value === rangeValue)
   }
 
   changeColorOfStates(stateArray, highlightState){
@@ -86,14 +83,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>States</h1>
-        <select onChange={this.handleSelect} value={this.state.selectedVal}>
+        <h4 class="visits-title">User Visits</h4>
+        <select onChange={this.handleSelect} value={this.state.selectedVal} className="visits-select">
             {this.state.rangeOptions.map((option, i) =>(
               <option key={i + 1} value={option.value}>{option.visitRange}</option>
             ))}
         </select>
         <div>
-          <MapSvg ref={this.mapRef}/>
+          <MapSvg ref={this.mapRef} className="svgMap"/>
         </div>
       </div>
     );
