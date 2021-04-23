@@ -7,4 +7,4 @@ npm start\
 open 2nd terminal window\
 cd map_client\
 npm install\
-npm start\
+npm start
